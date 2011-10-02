@@ -79,7 +79,7 @@ public abstract class CallGraphPathCollector {
 			hitSet.add(methodKey);
 		}
 
-		List<SootMethod> callers = graph.edgesInto(method, methodMap);
+		HashSet<SootMethod> callers = graph.edgesInto(method);
 		for (SootMethod m : callers) {
 			if (m == null)
 				continue;

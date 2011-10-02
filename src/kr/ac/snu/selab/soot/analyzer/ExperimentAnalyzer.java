@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.ac.snu.selab.soot.MyCallGraph;
+import kr.ac.snu.selab.soot.Util;
 
 import soot.Body;
 import soot.BodyTransformer;
@@ -23,7 +24,6 @@ import soot.Unit;
 import soot.ValueBox;
 import soot.jimple.internal.JAssignStmt;
 import soot.jimple.internal.JInvokeStmt;
-import soot.jimple.toolkits.callgraph.CallGraphUtil;
 
 public class ExperimentAnalyzer extends BodyTransformer {
 
@@ -271,16 +271,8 @@ public class ExperimentAnalyzer extends BodyTransformer {
 		}
 	}
 
-	private List<SootMethod> getCallerMethods(SootMethod aMethod, MyCallGraph cg) {
-		// List<SootMethod> methodList = new ArrayList<SootMethod>();
-		// Iterator<Edge> edgeIterator = cg.edgesInto(aMethod);
-		//
-		// while (edgeIterator.hasNext()) {
-		// methodList.add(edgeIterator.next().src());
-		// }
-		//
-		// return methodList;
-		return cg.edgesInto(aMethod, methodMap);
+	private HashSet<SootMethod> getCallerMethods(SootMethod aMethod, MyCallGraph cg) {
+		return cg.edgesInto(aMethod);
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -308,7 +300,8 @@ public class ExperimentAnalyzer extends BodyTransformer {
 			}
 		}
 
-		MyCallGraph cg = CallGraphUtil.load(callGraphPath, methodMap);
+		MyCallGraph cg = new MyCallGraph();
+		cg = cg.load(callGraphPath, methodMap);
 
 		try {
 			File outputFile = new File(output);
