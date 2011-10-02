@@ -1,49 +1,123 @@
 package kr.ac.snu.selab.soot;
 
-import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import soot.SootMethod;
 
 public class MyCallGraph {
 
-	private HashMap<String, HashSet<SootMethod>> map;
+	private HashMap<String, HashSet<SootMethod>> sourceToTargetSetMap;
+	private HashMap<String, HashSet<SootMethod>> targetToSourceSetMap;
 
 	public MyCallGraph() {
-		map = new HashMap<String, HashSet<SootMethod>>();
+		sourceToTargetSetMap = new HashMap<String, HashSet<SootMethod>>();
+		targetToSourceSetMap = new HashMap<String, HashSet<SootMethod>>();		
+	}
+	
+	public String toXML() {
+		String result = "";
+		result = result + "<CallGraph>";
+		result = result + "<SourceToTargetSetList>";
+		for (Entry<String, HashSet<SootMethod>> anEntry : sourceToTargetSetMap.entrySet()) {
+			result = result + "<SourceToTargetSet>";
+			result = result + "<Source>" + Util.removeBracket(anEntry.getKey()) + "</Source>";
+			result = result + "<TargetSet>";
+			for (SootMethod aMethod : anEntry.getValue()) {
+				result = result + "<Target>" + Util.removeBracket(aMethod.toString()) + "</Target>";
+			}
+			result = result + "</TargetSet>";
+			result = result + "</SourceToTargetSet>";
+		}
+		result = result + "</SourceToTargetSetList>";
+		result = result + "<TargetToSourceSetList>";
+		for (Entry<String, HashSet<SootMethod>> anEntry : targetToSourceSetMap.entrySet()) {
+			result = result + "<TargetToSourceSet>";
+			result = result + "<Target>" + Util.removeBracket(anEntry.getKey()) + "</Target>";
+			result = result + "<SourceSet>";
+			for (SootMethod aMethod : anEntry.getValue()) {
+				result = result + "<Source>" + Util.removeBracket(aMethod.toString()) + "</Source>";
+			}
+			result = result + "</SourceSet>";
+			result = result + "</TargetToSourceSet>";
+		}
+		result = result + "</TargetToSourceSetList>";
+		result = result + "</CallGraph>";
+		return result;
+	}
+	
+	public MyCallGraph load (String filePath, Map<String, SootMethod> methodMap) {
+		MyCallGraph g = new MyCallGraph();
+		BufferedReader reader = null;
+		try {
+			reader = new BufferedReader(new FileReader(filePath));
+			String line = null;
+			while ((line = reader.readLine()) != null) {
+				String[] tokens = line.split("\t");
+				if (tokens == null || tokens.length != 2)
+					continue;
+
+				g.addEdge(tokens[0], tokens[1], methodMap);
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (reader != null)
+				try {
+					reader.close();
+				} catch (IOException e) {
+				}
+		}
+		return g;
 	}
 
-	public List<SootMethod> edgesInto(SootMethod aMethod,
-			Map<String, SootMethod> methodMap) {
-		ArrayList<SootMethod> srcs = new ArrayList<SootMethod>();
+	public HashSet<SootMethod> edgesInto(SootMethod aMethod) {
 		String key = aMethod.toString();
-
-		HashSet<SootMethod> set = map.get(key);
-		if (set == null) {
-			return srcs;
+		if (targetToSourceSetMap.containsKey(key)) {
+			return targetToSourceSetMap.get(key);
 		}
-
-		for (SootMethod k : set) {
-			if (k != null)
-				srcs.add(k);
+		else {
+			return new HashSet<SootMethod>();
 		}
-		return srcs;
+	}
+	
+	public HashSet<SootMethod> edgesOutOf(SootMethod aMethod) {
+		String key = aMethod.toString();
+		if (sourceToTargetSetMap.containsKey(key)) {
+			return sourceToTargetSetMap.get(key);
+		}
+		else {
+			return new HashSet<SootMethod>();
+		}
 	}
 
-	public void addEdge(String src, String tgt,
+	public void addEdge(String source, String target,
 			Map<String, SootMethod> methodMap) {
-		if (!methodMap.containsKey(src) || !methodMap.containsKey(tgt))
+		if (!methodMap.containsKey(source) || !methodMap.containsKey(target))
 			return;
 
-		if (!map.containsKey(tgt)) {
-			HashSet<SootMethod> set = new HashSet<SootMethod>();
-			map.put(tgt, set);
+		if (!targetToSourceSetMap.containsKey(target)) {
+			HashSet<SootMethod> sourceSet = new HashSet<SootMethod>();
+			targetToSourceSetMap.put(target, sourceSet);
 		}
-
-		HashSet<SootMethod> set = map.get(tgt);
-		set.add(methodMap.get(src));
+		
+		HashSet<SootMethod> sourceSet = targetToSourceSetMap.get(target);
+		sourceSet.add(methodMap.get(source));
+		
+		if (!sourceToTargetSetMap.containsKey(source)) {
+			HashSet<SootMethod> targetSet = new HashSet<SootMethod>();
+			sourceToTargetSetMap.put(source, targetSet);
+		}
+		
+		HashSet<SootMethod> targetSet = sourceToTargetSetMap.get(source);
+		targetSet.add(methodMap.get(target));
 	}
 }
