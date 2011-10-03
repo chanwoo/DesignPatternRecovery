@@ -17,9 +17,9 @@ public class AnalyzerRunner {
 		
 //		BodyTransformer bodyTransformer = new CallGraphTXTCreater(project.getCallGraphPath());
 //		BodyTransformer bodyTransformer = new CallGraphXMLCreater(project.getCallGraphPath(), project.getCallGraphXMLPath());
-//		BodyTransformer bodyTransformer = new CodeAnalyzer(project.getCodeAnalysisOutputPath());
+		BodyTransformer bodyTransformer = new CodeAnalyzer(project.getCodeAnalysisOutputPath());
 //		BodyTransformer bodyTransformer = new ExperimentAnalyzer(project.getOutputPath(), project.getCallGraphPath());
-		BodyTransformer bodyTransformer = new RoleAnalyzer(project.getOutputPath());
+//		BodyTransformer bodyTransformer = new RoleAnalyzer(project.getOutputPath());
 		
 		PackManager
 				.v()

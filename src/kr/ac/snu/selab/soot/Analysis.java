@@ -146,6 +146,11 @@ public class Analysis {
 		return result;
 	}
 	
+	private MethodAnalysisResult analyzeMethod(SootMethod aMethod) {
+		MethodAnalysisResult result = new MethodAnalysisResult();
+		return result;
+	}
+	
 	public List<AnalysisResult> getAnalysisResultList() {
 		List<AnalysisResult> analysisResultList = new ArrayList<AnalysisResult>();
 		List<SootClass> abstractTypeList = getAbstractTypeClassList();

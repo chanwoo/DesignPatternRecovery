@@ -1,0 +1,5 @@
+package kr.ac.snu.selab.soot;
+
+public class ReturnValue extends FlowOut {
+
+}

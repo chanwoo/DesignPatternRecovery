@@ -7,10 +7,10 @@ public class Main {
 
 		AbstractProject project = null;
 
-		project = new JHotDraw_5_3Project("JHotDraw_5_3");
+//		project = new JHotDraw_5_3Project("JHotDraw_5_3");
 //		project = new StatePatternExampleProject("StatePatternExample");
 //		project = new StrategyPatternExampleProject("StrategyPatternExample");
-//		project = new StatePatternExample2Project("StatePatternExample2");
+		project = new StatePatternExample2Project("StatePatternExample2");
 
 		AnalyzerRunner.run(project);
 	}
