@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.ac.snu.selab.soot.MyCallGraph;
-import kr.ac.snu.selab.soot.Util;
+import kr.ac.snu.selab.soot.MyUtil;
 
 import soot.Body;
 import soot.BodyTransformer;

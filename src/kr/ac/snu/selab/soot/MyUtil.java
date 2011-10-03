@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class Util {
+public class MyUtil {
 	public static String removeBracket(String aString) {
 		return aString.toString().replaceAll("<|>", " ");
 	}

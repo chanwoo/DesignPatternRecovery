@@ -4,12 +4,18 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import soot.Body;
+import soot.SootClass;
 import soot.SootMethod;
+import soot.Unit;
+import soot.jimple.internal.JInvokeStmt;
 
 public class MyCallGraph {
 
@@ -21,16 +27,37 @@ public class MyCallGraph {
 		targetToSourceSetMap = new HashMap<String, HashSet<SootMethod>>();		
 	}
 	
+	public MyCallGraph(List<SootClass> aClassList, HashMap<String, SootMethod> methodMap) {
+		sourceToTargetSetMap = new HashMap<String, HashSet<SootMethod>>();
+		targetToSourceSetMap = new HashMap<String, HashSet<SootMethod>>();
+		
+		for (SootClass aClass : aClassList) {
+			for (SootMethod aMethod : aClass.getMethods()) {
+				List<Unit> unitList = new ArrayList<Unit>();
+				if (aMethod.hasActiveBody()) {
+					Body body = aMethod.getActiveBody();
+					unitList.addAll(body.getUnits());
+				}
+				for (Unit aUnit : unitList) {
+					if (aUnit instanceof JInvokeStmt) {
+						JInvokeStmt jInvokeStatement = (JInvokeStmt)aUnit;
+						addEdge(aMethod.toString(), jInvokeStatement.getInvokeExpr().getMethod().toString(), methodMap);
+					}
+				}
+			}
+		}
+	}
+	
 	public String toXML() {
 		String result = "";
 		result = result + "<CallGraph>";
 		result = result + "<SourceToTargetSetList>";
 		for (Entry<String, HashSet<SootMethod>> anEntry : sourceToTargetSetMap.entrySet()) {
 			result = result + "<SourceToTargetSet>";
-			result = result + "<Source>" + Util.removeBracket(anEntry.getKey()) + "</Source>";
+			result = result + "<Source>" + MyUtil.removeBracket(anEntry.getKey()) + "</Source>";
 			result = result + "<TargetSet>";
 			for (SootMethod aMethod : anEntry.getValue()) {
-				result = result + "<Target>" + Util.removeBracket(aMethod.toString()) + "</Target>";
+				result = result + "<Target>" + MyUtil.removeBracket(aMethod.toString()) + "</Target>";
 			}
 			result = result + "</TargetSet>";
 			result = result + "</SourceToTargetSet>";
@@ -39,10 +66,10 @@ public class MyCallGraph {
 		result = result + "<TargetToSourceSetList>";
 		for (Entry<String, HashSet<SootMethod>> anEntry : targetToSourceSetMap.entrySet()) {
 			result = result + "<TargetToSourceSet>";
-			result = result + "<Target>" + Util.removeBracket(anEntry.getKey()) + "</Target>";
+			result = result + "<Target>" + MyUtil.removeBracket(anEntry.getKey()) + "</Target>";
 			result = result + "<SourceSet>";
 			for (SootMethod aMethod : anEntry.getValue()) {
-				result = result + "<Source>" + Util.removeBracket(aMethod.toString()) + "</Source>";
+				result = result + "<Source>" + MyUtil.removeBracket(aMethod.toString()) + "</Source>";
 			}
 			result = result + "</SourceSet>";
 			result = result + "</TargetToSourceSet>";
