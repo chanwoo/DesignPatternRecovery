@@ -1,0 +1,76 @@
+<?xml version="1.0" ?>
+<projects>
+	<project name="JHotDraw_5_3">
+		<project_root>/Users/chanwoo/Documents/workspace/${PROJECT_NAME}</project_root>
+		<sources>
+			<path>${PROJECT_ROOT}/src</path>
+		</sources>
+		<classpaths>
+			<path>/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar</path>
+			<path>/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/jce.jar</path>
+			<path>/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/ui.jar</path>
+			<path>${SRC_PATHS}</path>
+		</classpaths>
+		<output>
+			<jimple>${PROJECT_ROOT}/jimple</jimple>
+			<output_xml>${PROJECT_ROOT}/output/${PROJECT_NAME}_analysis.xml</output_xml>
+			<call_graph>${PROJECT_ROOT}/callgraph/${PROJECT_NAME}_callgraph.txt</call_graph>
+			<call_graph_xml>${PROJECT_ROOT}/callgraph/${PROJECT_NAME}_callgraph.xml</call_graph_xml>
+			<code_ana_output_xml>${PROJECT_ROOT}/code_analysis_output/${PROJECT_NAME}_code_analysis.xml</code_ana_output_xml>
+		</output>
+	</project>
+	<project name="StatePatternExample">
+		<project_root>/Users/chanwoo/Documents/workspace/${PROJECT_NAME}</project_root>
+		<sources>
+			<path>${PROJECT_ROOT}/src</path>
+		</sources>
+		<classpaths>
+			<path>/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar</path>
+			<path>/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/jce.jar</path>
+			<path>${SRC_PATHS}</path>
+		</classpaths>
+		<output>
+			<jimple>${PROJECT_ROOT}/jimple</jimple>
+			<output_xml>${PROJECT_ROOT}/output/${PROJECT_NAME}_analysis.xml</output_xml>
+			<call_graph>${PROJECT_ROOT}/callgraph/${PROJECT_NAME}_callgraph.txt</call_graph>
+			<call_graph_xml>${PROJECT_ROOT}/callgraph/${PROJECT_NAME}_callgraph.xml</call_graph_xml>
+			<code_ana_output_xml>${PROJECT_ROOT}/code_analysis_output/${PROJECT_NAME}_code_analysis.xml</code_ana_output_xml>
+		</output>
+	</project>
+	<project name="StatePatternExample2">
+		<project_root>/Users/chanwoo/Documents/workspace/${PROJECT_NAME}</project_root>
+		<sources>
+			<path>${PROJECT_ROOT}/src</path>
+		</sources>
+		<classpaths>
+			<path>/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar</path>
+			<path>/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/jce.jar</path>
+			<path>${SRC_PATHS}</path>
+		</classpaths>
+		<output>
+			<jimple>${PROJECT_ROOT}/jimple</jimple>
+			<output_xml>${PROJECT_ROOT}/output/${PROJECT_NAME}_analysis.xml</output_xml>
+			<call_graph>${PROJECT_ROOT}/callgraph/${PROJECT_NAME}_callgraph.txt</call_graph>
+			<call_graph_xml>${PROJECT_ROOT}/callgraph/${PROJECT_NAME}_callgraph.xml</call_graph_xml>
+			<code_ana_output_xml>${PROJECT_ROOT}/code_analysis_output/${PROJECT_NAME}_code_analysis.xml</code_ana_output_xml>
+		</output>
+	</project>
+	<project name="StrategyPatternExample">
+		<project_root>/Users/chanwoo/Documents/workspace/${PROJECT_NAME}</project_root>
+		<sources>
+			<path>${PROJECT_ROOT}/src</path>
+		</sources>
+		<classpaths>
+			<path>/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar</path>
+			<path>/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/jce.jar</path>
+			<path>${SRC_PATHS}</path>
+		</classpaths>
+		<output>
+			<jimple>${PROJECT_ROOT}/jimple</jimple>
+			<output_xml>${PROJECT_ROOT}/output/${PROJECT_NAME}_analysis.xml</output_xml>
+			<call_graph>${PROJECT_ROOT}/callgraph/${PROJECT_NAME}_callgraph.txt</call_graph>
+			<call_graph_xml>${PROJECT_ROOT}/callgraph/${PROJECT_NAME}_callgraph.xml</call_graph_xml>
+			<code_ana_output_xml>${PROJECT_ROOT}/code_analysis_output/${PROJECT_NAME}_code_analysis.xml</code_ana_output_xml>
+		</output>
+	</project>
+</projects>

@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<projects>
+	<!-- 
+		A project.
+ 		From now, a keyword ${PROJECT_NAME} will be replaced 'name' attribute. 
+ 	-->
+	<project name="JHotDraw_5_3">
+	 	<!-- 
+	 		project root
+	 		From now, a keyword ${RPOJECT_ROOT} will be replaced with this text 
+	 	-->
+		<project_root>/Users/chanwoo/Documents/workspace/${PROJECT_NAME}</project_root>
+		
+	 	<!-- 
+	 		Source directories that contains target program source codes.
+	 		From now, a keyword ${SRC_PATHS} will be replaced with this text 
+	 	-->
+		<sources>
+			<path>${PROJECT_ROOT}/src</path>
+		</sources>
+		
+	 	<!-- 
+	 		Class paths.
+	 	-->
+		<classpaths>
+			<path>/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar</path>
+			<path>/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/jce.jar</path>
+			<path>/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/ui.jar</path>
+			<path>${SRC_PATHS}</path>
+		</classpaths>
+		
+	 	<!-- 
+	 		Output setting
+	 	-->
+		<output>
+			<jimple>${PROJECT_ROOT}/jimple</jimple>
+			<output_xml>${PROJECT_ROOT}/output/${PROJECT_NAME}_analysis.xml</output_xml>
+			<call_graph>${PROJECT_ROOT}/callgraph/${PROJECT_NAME}_callgraph.txt</call_graph>
+			<call_graph_xml>${PROJECT_ROOT}/callgraph/${PROJECT_NAME}_callgraph.xml</call_graph_xml>
+			<code_ana_output_xml>${PROJECT_ROOT}/code_analysis_output/${PROJECT_NAME}_code_analysis.xml</code_ana_output_xml>
+		</output>
+	</project>
+	
+	<!-- Add additional projects here -->
+	
+</projects>
