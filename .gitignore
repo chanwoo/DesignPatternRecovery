@@ -37,3 +37,10 @@ sootOutput/
 ehthumbs.db
 Icon?
 Thumbs.db
+
+# Eclipse setting files #
+#########################
+.classpath
+.project
+.settings
+src/projects.xml
